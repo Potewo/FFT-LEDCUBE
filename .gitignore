@@ -1,0 +1,7 @@
+.clangd/
+/obj/
+/config.make/
+/bin/*
+!/bin/data/
+/bin/data/log.log
+compile_commands.json
