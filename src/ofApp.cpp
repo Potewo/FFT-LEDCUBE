@@ -25,7 +25,7 @@ void ofApp::setup() {
     ofLogNotice("ofApp::setup") << "No devices connected.";
   }
 
-  player.load("sounds/unity.mp3");
+  player.load("sounds/unity.mp3", true);
   /* player.setVolume(1.0); */
   player.play();
   for (int i = 0; i < nBandsToGet; i++) {
@@ -35,11 +35,17 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+  ofLogNotice("ofApp::setup") << player.getPosition();
+  if (player.getPosition() >= 0.47) {
+    ofLogNotice("Finish");
+    ofApp::exit();
+    exit();
+  }
   ofBackground(80, 80, 20);
   ofSoundUpdate();
   float *val = ofSoundGetSpectrum(nBandsToGet);
   for (int i = 0; i < nBandsToGet; i++) {
-    fftSmoothed[i] *= 0.96f;
+    /* fftSmoothed[i] *= 0.96f; */
     /* if (fftSmoothed[i] < val[i]) fftSmoothed[i] = val[i] * (i+1); */
     fftSmoothed[i] = val[i] * (i + 1) * 3;
   }
